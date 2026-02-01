@@ -3,149 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prompt Library</title>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
-
-body{
-  margin:0;
-  font-family:'Cairo',sans-serif;
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  color:#fff;
-}
-
-header{
-  padding:30px;
-  text-align:center;
-}
-
-header h1{
-  margin:0;
-  font-size:28px;
-}
-
-header p{
-  color:#cbd5e1;
-}
-
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
-
-.card{
-  background:#020617;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
-
-.card h2{
-  margin:0 0 10px 0;
-  font-size:20px;
-}
-
-textarea{
-  width:100%;
-  height:130px;
-  background:#020617;
-  color:#e5e7eb;
-  border:1px solid #334155;
-  border-radius:12px;
-  padding:12px;
-  resize:none;
-}
-
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:12px;
-}
-
-button{
-  flex:1;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#6366f1,#3b82f6);
-  color:#fff;
-  font-size:14px;
-  cursor:pointer;
-}
-
-button:hover{
-  opacity:.85;
-}
-
-footer{
-  text-align:center;
-  padding:20px;
-  color:#94a3b8;
-  font-size:13px;
-}
-</style>
+<title>مكتبة البرومبتات</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header>
   <h1>🚀 مكتبة البرومبتات</h1>
-  <p>برومبتات احترافية جاهزة للاستخدام مع الذكاء الاصطناعي</p>
+  <p>نسخ البرومبتات مباشرة واستخدامها مع الذكاء الاصطناعي</p>
 </header>
 
-<div class="container">
-
-  <div class="card">
-    <h2>🎯 بروفايل احترافي</h2>
-    <textarea>Ultra realistic 3D portrait of a confident man, soft lighting, clean background, cinematic depth, professional photography, 8k</textarea>
-    <div class="actions">
-      <button onclick="copy(this)">📋 نسخ البرومبت</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>🔥 تصميم لوجو</h2>
-    <textarea>Minimal modern logo design, vector style, clean shapes, centered composition, white background, branding mockup</textarea>
-    <div class="actions">
-      <button onclick="copy(this)">📋 نسخ البرومبت</button>
-    </div>
-  </div>
-
-        <button onclick="copy(this)">📋 نسخ البرومبت</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>📸  تصميم صوره مصغره يوتيوبر</h2>
-    <textarea>اسد يظير هههههه</textarea>
-    <div class="actions">
-      <button 
-
-  <div class="card">
-    <h2>📸 منتج احترافي</h2>
-    <textarea>High-end product photography, studio lighting, soft shadows, isolated background, commercial advertising style, ultra detail</textarea>
-    <div class="actions">
-      <button onclick="copy(this)">📋 نسخ البرومبت</button>
-    </div>
-  </div>
-
-</div>
+<div class="container" id="promptsContainer"></div>
 
 <footer>
   © Prompt Library — Share & Earn
 </footer>
 
 <script>
-function copy(btn){
-  let ta = btn.parentElement.previousElementSibling;
-  ta.select();
-  ta.setSelectionRange(0,99999);
-  document.execCommand("copy");
-  alert("✅ تم نسخ البرومبت");
+// جلب البرومبتات من LocalStorage
+function loadPrompts() {
+  let prompts = JSON.parse(localStorage.getItem('prompts')) || [];
+  const container = document.getElementById('promptsContainer');
+  container.innerHTML = '';
+  prompts.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <h2>${item.title}</h2>
+      <textarea readonly>${item.prompt}</textarea>
+      <button onclick="copyPrompt(this)">📋 نسخ البرومبت</button>
+    `;
+    container.appendChild(card);
+  });
 }
+
+function copyPrompt(btn){
+  let ta = btn.previousElementSibling;
+  ta.select();
+  document.execCommand('copy');
+  alert('✅ تم نسخ البرومبت');
+}
+
+// تحميل البرومبتات عند فتح الصفحة
+loadPrompts();
 </script>
 
 </body>
