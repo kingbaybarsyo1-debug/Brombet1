@@ -1,52 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مكتبة البرومبتات</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<header>
-  <h1>🚀 مكتبة البرومبتات</h1>
-  <p>نسخ البرومبتات مباشرة واستخدامها مع الذكاء الاصطناعي</p>
-</header>
-
-<div class="container" id="promptsContainer"></div>
-
-<footer>
-  © Prompt Library — Share & Earn
-</footer>
-
-<script>
-// جلب البرومبتات من LocalStorage
-function loadPrompts() {
-  let prompts = JSON.parse(localStorage.getItem('prompts')) || [];
-  const container = document.getElementById('promptsContainer');
-  container.innerHTML = '';
-  prompts.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <h2>${item.title}</h2>
-      <textarea readonly>${item.prompt}</textarea>
-      <button onclick="copyPrompt(this)">📋 نسخ البرومبت</button>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function copyPrompt(btn){
-  let ta = btn.previousElementSibling;
-  ta.select();
-  document.execCommand('copy');
-  alert('✅ تم نسخ البرومبت');
-}
-
-// تحميل البرومبتات عند فتح الصفحة
-loadPrompts();
-</script>
-
-</body>
-</html>
